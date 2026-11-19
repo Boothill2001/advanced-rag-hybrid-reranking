@@ -3,5 +3,5 @@
 *.md text eol=lf
 *.json text eol=lf
 *.bat text eol=crlf
-research-manifest.json -text
-research-gate.json -text
+research-manifest.json -text whitespace=cr-at-eol
+research-gate.json -text whitespace=cr-at-eol

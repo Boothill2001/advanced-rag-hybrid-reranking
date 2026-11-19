@@ -2,7 +2,7 @@
 
 **An agent should receive evidence it is allowed to use, not an opaque answer with lost provenance.**
 
-This service supplies structured evidence to [Research Copilot](https://github.com/Boothill2001/AI_AGENT_LANGGHAPH). It searches real technical documentation, applies workspace permissions before ranking, exposes every retrieval stage, and can explicitly say that no sufficient evidence was found.
+This service supplies structured evidence to [Research Copilot](https://github.com/Boothill2001/langgraph-research-copilot). It searches real technical documentation, applies workspace permissions before ranking, exposes every retrieval stage, and can explicitly say that no sufficient evidence was found.
 
 The companion Copilot owns planning, arithmetic, reviewer approval and report storage. This repository owns ingestion, source provenance and retrieval. The legacy tutorial `/ask` endpoint remains available separately; the new agent consumes authenticated `/search` so generation does not happen twice by default.
 
@@ -65,7 +65,7 @@ The full pipeline rejects both unsupported questions, but also drops a legitimat
 
 ## Run the service
 
-The easiest full walkthrough uses the companion Copilot's `start.bat`, with both repositories as siblings. See its [setup and learning guide](https://github.com/Boothill2001/AI_AGENT_LANGGHAPH).
+The easiest full walkthrough uses the companion Copilot's `start.bat`, with both repositories as siblings. See its [setup and learning guide](https://github.com/Boothill2001/langgraph-research-copilot).
 
 Standalone retrieval setup on Windows, Python 3.11:
 
