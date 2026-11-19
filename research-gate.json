@@ -1,0 +1,52 @@
+{
+  "threshold": -3.3842663764953613,
+  "rule": "maximize dev answerability F1, fewer false accepts, higher threshold on tie",
+  "dev": [
+    {
+      "query": "How does reciprocal rank fusion combine rankings?",
+      "expected_source": "rrf",
+      "top_score": 8.779881477355957
+    },
+    {
+      "query": "How do LangGraph interrupts pause for human input?",
+      "expected_source": "interrupts",
+      "top_score": 7.500595569610596
+    },
+    {
+      "query": "What is a checkpoint thread in LangGraph persistence?",
+      "expected_source": "persistence",
+      "top_score": 3.426632881164551
+    },
+    {
+      "query": "What are MCP tools input schemas?",
+      "expected_source": "mcp-tools",
+      "top_score": 2.7556066513061523
+    },
+    {
+      "query": "How does a cross encoder rerank retrieved passages?",
+      "expected_source": "reranking",
+      "top_score": 6.396551132202148
+    },
+    {
+      "query": "What is the current live price of Bitcoin right now?",
+      "expected_source": null,
+      "top_score": -11.182258605957031
+    },
+    {
+      "query": "What is the precise blood glucose level of patient Maria?",
+      "expected_source": null,
+      "top_score": -11.303665161132812
+    },
+    {
+      "query": "What was the final score in yesterday's baseball game?",
+      "expected_source": null,
+      "top_score": -9.524139404296875
+    }
+  ],
+  "dev_tp_fp_fn": [
+    5,
+    0,
+    0
+  ],
+  "notice": "Raw cross-encoder scores are not probabilities. No test questions select the threshold."
+}

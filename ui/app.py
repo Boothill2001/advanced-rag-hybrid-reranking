@@ -9,7 +9,7 @@ import os
 import requests
 import streamlit as st
 
-API_URL = os.getenv("RAG_API_URL", "http://localhost:8000")
+API_URL = os.getenv("RAG_API_URL", "http://localhost:8010")
 
 st.set_page_config(page_title="Advanced RAG Demo", page_icon="🔎", layout="wide")
 
@@ -32,7 +32,7 @@ with st.sidebar:
         st.success("API: online")
         st.write(f"LLM configured: {'✅' if health['llm_configured'] else '❌ (extractive fallback)'}")
     except requests.RequestException:
-        st.error("API offline — start it with:\n`uvicorn api.main:app --port 8000`")
+        st.error("API offline — start it with:\n`uvicorn api.main:app --port 8010`")
 
     st.divider()
     st.markdown(

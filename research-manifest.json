@@ -1,0 +1,72 @@
+{
+  "official_sources": [
+    {
+      "source_id": "interrupts",
+      "url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+      "resolved_url": "https://docs.langchain.com/oss/python/langgraph/interrupts",
+      "fetched_at": "2026-11-19T05:40:23.617690+00:00",
+      "content_sha256": "789f25d495315ab2561219c7e74f231fea344eff7469103de9720078e7fe875d",
+      "response_sha256": "52f4ff95be3d4fc17f700f6cbd3ddea88f56f30e4f12983fc76248b1add2d453",
+      "characters": 27661,
+      "chunks": 38
+    },
+    {
+      "source_id": "persistence",
+      "url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "resolved_url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+      "fetched_at": "2026-11-19T05:40:23.879091+00:00",
+      "content_sha256": "7e7c9e259afef9e346d29493d5c447dde4c19f7495094d2acc018e58c05f4e34",
+      "response_sha256": "8943d7735d0f6ea3ca3e5c311e39fa06684b49b859cabb5798346978ce689956",
+      "characters": 1644,
+      "chunks": 6
+    },
+    {
+      "source_id": "mcp-architecture",
+      "url": "https://modelcontextprotocol.io/docs/learn/architecture",
+      "resolved_url": "https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture",
+      "fetched_at": "2026-11-19T05:40:24.486735+00:00",
+      "content_sha256": "b55ec18f9534599b239a904347f437945025428b0ad4d08ed0ce47200ed79cfa",
+      "response_sha256": "a417cfefadf8b3875a65570b70bc64910cc2fd5f51858632a7b5df61fb51fcc3",
+      "characters": 13283,
+      "chunks": 17
+    },
+    {
+      "source_id": "mcp-tools",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+      "resolved_url": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+      "fetched_at": "2026-11-19T05:40:25.374130+00:00",
+      "content_sha256": "347753bb3cec4c7f6686a5236fc8307d36d891302931a6442202f4d71a4a4c13",
+      "response_sha256": "c6af0f6a7268899ebe1d56e21fa6ab6fadf65feb5206222d4825cf81f5b30e92",
+      "characters": 4931,
+      "chunks": 11
+    },
+    {
+      "source_id": "rrf",
+      "url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion",
+      "resolved_url": "https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion",
+      "fetched_at": "2026-11-19T05:40:28.204878+00:00",
+      "content_sha256": "e99b96a6544b8cc5700c513a2291f35e7ec7ff78ec8d288d6abebca2ca5e8b6a",
+      "response_sha256": "4abeec27a40fdbf56d4d34caf179d9398f7b177eb0fe4c83a2038207d1ea0b83",
+      "characters": 23944,
+      "chunks": 31
+    },
+    {
+      "source_id": "reranking",
+      "url": "https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html",
+      "resolved_url": "https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html",
+      "fetched_at": "2026-11-19T05:40:28.905511+00:00",
+      "content_sha256": "fd660f22dad35cde6decbf48f5838d97dc06e1d20d5d4535b6b2653c6c7914ba",
+      "response_sha256": "b9a159a23bc08e4af9d704f9034ba3d4a9b52592459bef30219f4144998461c3",
+      "characters": 4622,
+      "chunks": 8
+    }
+  ],
+  "synthetic_documents": 2,
+  "chunks": 113,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "chunk_chars": 1200,
+  "overlap_chars": 150,
+  "chunk_metadata_sha256": "0798a160abc481fd8739c76aa67a853662549bc4b77fdc00d2a122a814d0f6c2",
+  "embedding_file_sha256": "d50c2affaf70913954ab16a0c771ab653331d1359a402fa6b041b452d14c3240",
+  "notice": "Official snapshots are local-only; fetch dates and content hashes identify the exact evaluated corpus. Synthetic fixtures test ACL and injection only."
+}

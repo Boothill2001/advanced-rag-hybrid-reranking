@@ -1,0 +1,7 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.bat text eol=crlf
+research-manifest.json -text
+research-gate.json -text

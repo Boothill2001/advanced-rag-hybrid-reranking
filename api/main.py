@@ -1,9 +1,9 @@
 """FastAPI service exposing the RAG pipeline.
 
 Run from the project root:
-    uvicorn api.main:app --reload --port 8000
+    uvicorn api.main:app --reload --port 8010
 
-Interactive API docs (Swagger UI): http://localhost:8000/docs
+Interactive API docs (Swagger UI): http://localhost:8010/docs
 """
 
 import sys
@@ -50,6 +50,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+from api.research import router as research_router
+app.include_router(research_router)
 
 
 class AskRequest(BaseModel):

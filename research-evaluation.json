@@ -1,0 +1,876 @@
+{
+  "manifest_sha256": "6a6fd346f905c3883c5b01d7d05f759d86755d029c510bb40eaa40fdedf7bf55",
+  "selection": {
+    "threshold": -3.3842663764953613,
+    "rule": "maximize dev answerability F1, fewer false accepts, higher threshold on tie",
+    "dev": [
+      {
+        "query": "How does reciprocal rank fusion combine rankings?",
+        "expected_source": "rrf",
+        "top_score": 8.779881477355957
+      },
+      {
+        "query": "How do LangGraph interrupts pause for human input?",
+        "expected_source": "interrupts",
+        "top_score": 7.500595569610596
+      },
+      {
+        "query": "What is a checkpoint thread in LangGraph persistence?",
+        "expected_source": "persistence",
+        "top_score": 3.426632881164551
+      },
+      {
+        "query": "What are MCP tools input schemas?",
+        "expected_source": "mcp-tools",
+        "top_score": 2.7556066513061523
+      },
+      {
+        "query": "How does a cross encoder rerank retrieved passages?",
+        "expected_source": "reranking",
+        "top_score": 6.396551132202148
+      },
+      {
+        "query": "What is the current live price of Bitcoin right now?",
+        "expected_source": null,
+        "top_score": -11.182258605957031
+      },
+      {
+        "query": "What is the precise blood glucose level of patient Maria?",
+        "expected_source": null,
+        "top_score": -11.303665161132812
+      },
+      {
+        "query": "What was the final score in yesterday's baseball game?",
+        "expected_source": null,
+        "top_score": -9.524139404296875
+      }
+    ],
+    "dev_tp_fp_fn": [
+      5,
+      0,
+      0
+    ],
+    "notice": "Raw cross-encoder scores are not probabilities. No test questions select the threshold."
+  },
+  "test": {
+    "dense": {
+      "n": 18,
+      "answerable_n": 16,
+      "source_hit_at_5": 1.0,
+      "source_mrr_at_5": 0.8854166666666667,
+      "out_of_scope_false_accepts": 2,
+      "cases": [
+        {
+          "query": "What role does rank constant k play in RRF?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 41.315399983432144
+        },
+        {
+          "query": "Does reciprocal rank fusion use raw relevance scores from each retriever?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 44.02929998468608
+        },
+        {
+          "query": "How can I merge lexical and dense rankings?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 38.15889998804778
+        },
+        {
+          "query": "How do I resume a graph after an interrupt?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 37.92909998446703
+        },
+        {
+          "query": "Why must side effects before interrupts be idempotent?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 37.03259996837005
+        },
+        {
+          "query": "How is human input returned to a paused graph node?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 41.6065999888815
+        },
+        {
+          "query": "What does a LangGraph checkpointer save?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "persistence",
+            "persistence",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 39.0820000320673
+        },
+        {
+          "query": "Why use a thread ID for checkpointed agent execution?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "persistence",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 32.73419995093718
+        },
+        {
+          "query": "What is a StateSnapshot?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "mcp-architecture",
+            "interrupts",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 28.112500032875687
+        },
+        {
+          "query": "What are the host, client and server in MCP?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 29.990000010002404
+        },
+        {
+          "query": "What does MCP tool discovery return?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 30.784100003074855
+        },
+        {
+          "query": "How are tools called in the model context protocol?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-tools",
+            "mcp-tools",
+            "mcp-architecture"
+          ],
+          "latency_ms": 28.985799988731742
+        },
+        {
+          "query": "How do MCP tools report execution errors?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.5,
+          "sources": [
+            "mcp-architecture",
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-tools"
+          ],
+          "latency_ms": 26.830699993297458
+        },
+        {
+          "query": "What is inputSchema in an MCP tool definition?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 29.09259998705238
+        },
+        {
+          "query": "Why retrieve candidates before cross-encoder reranking?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "rrf"
+          ],
+          "latency_ms": 27.355299971532077
+        },
+        {
+          "query": "How does a bi-encoder differ from a cross-encoder?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking"
+          ],
+          "latency_ms": 30.6912999949418
+        },
+        {
+          "query": "What was my credit card balance this morning?",
+          "expected_source": null,
+          "status": "ok",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [
+            "workspace-note",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 29.743999999482185
+        },
+        {
+          "query": "What is the latest airline ticket price from Hanoi to Tokyo?",
+          "expected_source": null,
+          "status": "ok",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [
+            "workspace-note",
+            "rrf",
+            "rrf",
+            "rrf",
+            "reranking"
+          ],
+          "latency_ms": 30.507400049827993
+        }
+      ]
+    },
+    "hybrid": {
+      "n": 18,
+      "answerable_n": 16,
+      "source_hit_at_5": 1.0,
+      "source_mrr_at_5": 0.9270833333333334,
+      "out_of_scope_false_accepts": 2,
+      "cases": [
+        {
+          "query": "What role does rank constant k play in RRF?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 27.845499978866428
+        },
+        {
+          "query": "Does reciprocal rank fusion use raw relevance scores from each retriever?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 29.78619997156784
+        },
+        {
+          "query": "How can I merge lexical and dense rankings?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "reranking",
+            "reranking",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 30.697799986228347
+        },
+        {
+          "query": "How do I resume a graph after an interrupt?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 28.135199972894043
+        },
+        {
+          "query": "Why must side effects before interrupts be idempotent?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 26.807199988979846
+        },
+        {
+          "query": "How is human input returned to a paused graph node?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 26.859599980525672
+        },
+        {
+          "query": "What does a LangGraph checkpointer save?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "persistence",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 26.565500011201948
+        },
+        {
+          "query": "Why use a thread ID for checkpointed agent execution?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "interrupts",
+            "interrupts",
+            "persistence",
+            "interrupts"
+          ],
+          "latency_ms": 28.032599948346615
+        },
+        {
+          "query": "What is a StateSnapshot?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "interrupts",
+            "mcp-architecture",
+            "rrf",
+            "interrupts"
+          ],
+          "latency_ms": 26.513700024224818
+        },
+        {
+          "query": "What are the host, client and server in MCP?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 27.08789997268468
+        },
+        {
+          "query": "What does MCP tool discovery return?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 26.465499948244542
+        },
+        {
+          "query": "How are tools called in the model context protocol?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 27.87459996761754
+        },
+        {
+          "query": "How do MCP tools report execution errors?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.5,
+          "sources": [
+            "mcp-architecture",
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 26.664000004529953
+        },
+        {
+          "query": "What is inputSchema in an MCP tool definition?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 27.175900002475828
+        },
+        {
+          "query": "Why retrieve candidates before cross-encoder reranking?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking"
+          ],
+          "latency_ms": 27.665700006764382
+        },
+        {
+          "query": "How does a bi-encoder differ from a cross-encoder?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking"
+          ],
+          "latency_ms": 28.779099986422807
+        },
+        {
+          "query": "What was my credit card balance this morning?",
+          "expected_source": null,
+          "status": "ok",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "workspace-note"
+          ],
+          "latency_ms": 27.71619998384267
+        },
+        {
+          "query": "What is the latest airline ticket price from Hanoi to Tokyo?",
+          "expected_source": null,
+          "status": "ok",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [
+            "reranking",
+            "rrf",
+            "workspace-note",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 27.590799960307777
+        }
+      ]
+    },
+    "rerank": {
+      "n": 18,
+      "answerable_n": 16,
+      "source_hit_at_5": 0.9375,
+      "source_mrr_at_5": 0.8489583333333333,
+      "out_of_scope_false_accepts": 0,
+      "cases": [
+        {
+          "query": "What role does rank constant k play in RRF?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 2016.0518999909982
+        },
+        {
+          "query": "Does reciprocal rank fusion use raw relevance scores from each retriever?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 1751.7367000109516
+        },
+        {
+          "query": "How can I merge lexical and dense rankings?",
+          "expected_source": "rrf",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "rrf",
+            "reranking",
+            "reranking",
+            "rrf",
+            "rrf"
+          ],
+          "latency_ms": 2266.68460003566
+        },
+        {
+          "query": "How do I resume a graph after an interrupt?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 2118.9963999786414
+        },
+        {
+          "query": "Why must side effects before interrupts be idempotent?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 2196.8658000114374
+        },
+        {
+          "query": "How is human input returned to a paused graph node?",
+          "expected_source": "interrupts",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 2027.1968999877572
+        },
+        {
+          "query": "What does a LangGraph checkpointer save?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "persistence",
+            "persistence",
+            "interrupts",
+            "interrupts",
+            "interrupts"
+          ],
+          "latency_ms": 2455.0407999777235
+        },
+        {
+          "query": "Why use a thread ID for checkpointed agent execution?",
+          "expected_source": "persistence",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "sources": [
+            "interrupts",
+            "interrupts",
+            "persistence",
+            "interrupts",
+            "persistence"
+          ],
+          "latency_ms": 2287.929099984467
+        },
+        {
+          "query": "What is a StateSnapshot?",
+          "expected_source": "persistence",
+          "status": "insufficient_evidence",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [],
+          "latency_ms": 2585.5355000239797
+        },
+        {
+          "query": "What are the host, client and server in MCP?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 2321.060399990529
+        },
+        {
+          "query": "What does MCP tool discovery return?",
+          "expected_source": "mcp-architecture",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 2705.2018999820575
+        },
+        {
+          "query": "How are tools called in the model context protocol?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 0.25,
+          "sources": [
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-tools",
+            "interrupts"
+          ],
+          "latency_ms": 2924.4038999895565
+        },
+        {
+          "query": "How do MCP tools report execution errors?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 2643.528100044932
+        },
+        {
+          "query": "What is inputSchema in an MCP tool definition?",
+          "expected_source": "mcp-tools",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "mcp-tools",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture",
+            "mcp-architecture"
+          ],
+          "latency_ms": 2692.3288999823853
+        },
+        {
+          "query": "Why retrieve candidates before cross-encoder reranking?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking"
+          ],
+          "latency_ms": 2230.7498999871314
+        },
+        {
+          "query": "How does a bi-encoder differ from a cross-encoder?",
+          "expected_source": "reranking",
+          "status": "ok",
+          "source_hit_at_5": true,
+          "reciprocal_rank": 1.0,
+          "sources": [
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking",
+            "reranking"
+          ],
+          "latency_ms": 2422.9429000406526
+        },
+        {
+          "query": "What was my credit card balance this morning?",
+          "expected_source": null,
+          "status": "insufficient_evidence",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [],
+          "latency_ms": 2379.9038999713957
+        },
+        {
+          "query": "What is the latest airline ticket price from Hanoi to Tokyo?",
+          "expected_source": null,
+          "status": "insufficient_evidence",
+          "source_hit_at_5": false,
+          "reciprocal_rank": 0.0,
+          "sources": [],
+          "latency_ms": 2750.449599989224
+        }
+      ]
+    }
+  }
+}

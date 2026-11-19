@@ -1,175 +1,102 @@
-# Advanced RAG — Hybrid Search + Cross-Encoder Re-ranking
+# Research Evidence Service — a separate, inspectable RAG boundary
 
-[![CI](https://github.com/Boothill2001/RAG_project/actions/workflows/ci.yml/badge.svg)](https://github.com/Boothill2001/RAG_project/actions/workflows/ci.yml)
+**An agent should receive evidence it is allowed to use, not an opaque answer with lost provenance.**
 
-A production-style **Retrieval-Augmented Generation** pipeline demonstrating the
-retrieval techniques used in enterprise RAG systems: **semantic chunking**, **hybrid
-search** (dense + BM25 with Reciprocal Rank Fusion), **cross-encoder re-ranking**,
-grounded generation with **source citations**, and **graceful degradation** when the
-LLM provider is unavailable.
+This service supplies structured evidence to [Research Copilot](https://github.com/Boothill2001/AI_AGENT_LANGGHAPH). It searches real technical documentation, applies workspace permissions before ranking, exposes every retrieval stage, and can explicitly say that no sufficient evidence was found.
 
-Served through a **FastAPI** backend and a **Streamlit** chat UI.
+The companion Copilot owns planning, arithmetic, reviewer approval and report storage. This repository owns ingestion, source provenance and retrieval. The legacy tutorial `/ask` endpoint remains available separately; the new agent consumes authenticated `/search` so generation does not happen twice by default.
 
-> 🤖 **Part of a two-project ecosystem:** this RAG API is consumed as an MCP tool by my
-> [LangGraph Agent project](https://github.com/Boothill2001/AI_AGENT_LANGGHAPH) —
-> RAG is the knowledge layer, the agent is the orchestration layer.
+![The live Copilot displays structured results returned by this service](assets/research-evidence.png)
 
-## Demo
+## Input → retrieval decisions → structured evidence
 
-Grounded answer with inline source citations — every claim traces back to a document:
-
-![Streamlit chat UI — grounded answer with citations](assets/demo_ui.png)
-
-Source inspection and per-stage latency (which retriever found each chunk, timing per
-pipeline stage) — and the model correctly refusing to invent facts not in the context:
-
-![Source panel and per-stage latency](assets/demo_sources_latency.png)
-
-## Architecture
-
-```
-                        ┌──────────────── OFFLINE (build_index.py) ───────────────┐
-  data/docs/*.md ──► semantic chunking ──► sentence-transformers ──► FAISS index   │
-                     (heading/paragraph)    (all-MiniLM-L6-v2)       + BM25 corpus │
-                        └──────────────────────────────────────────────────────────┘
-
-                        ┌──────────────── ONLINE (per query) ─────────────────────┐
-                        │                                                          │
-   question ──┬──► dense search (FAISS, cosine, top-20) ──┐                        │
-              │                                           ├─► Reciprocal Rank      │
-              └──► sparse search (BM25, top-20) ──────────┘   Fusion (k=60)        │
-                                                                   │               │
-                                                    cross-encoder re-ranking       │
-                                                 (ms-marco-MiniLM-L-6-v2)          │
-                                                                   │               │
-                                                             top-5 chunks          │
-                                                                   │               │
-                     grounded prompt (cite sources, refuse if unknown)             │
-                                                                   │               │
-                        DeepSeek LLM ──── on failure ───► extractive fallback      │
-                        └──────────────────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    Q[Query + signed identity] --> A[Allowed document subset]
+    A --> D[FAISS dense search]
+    A --> B[BM25 lexical search]
+    D --> F[RRF: k=60]
+    B --> F
+    F --> R[Cross-encoder reranking]
+    R --> G[Dev-calibrated evidence gate]
+    G --> O[Status + chunks + sources + trace]
 ```
 
-## Features
+A request such as `{"query":"How does RRF combine rankings?","source_id":"rrf","mode":"rerank"}` returns:
 
-| Feature | Implementation |
+- `status`: `ok`, `insufficient_evidence`, or `forbidden`; operational failures use HTTP errors.
+- `evidence`: authorized chunk IDs, source URLs, section text, source hashes, rank contributions and scores.
+- `trace`: authorized candidate count, dense and BM25 rankings, RRF fusion, reranking, gate decision, timings and corpus-manifest hash.
+
+The bearer token arrives from the trusted agent runtime. There is no user-controlled role/workspace field in the request schema. Both retrievers search only allowed rows; this is not a top-k search followed by filtering. A blocked source returns no evidence. The same filter protects `/research/data` when inspecting chunks.
+
+## The data is real; access-control fixtures are fictional
+
+The recorded corpus contains **six official source pages**, **111 official-document chunks**, and **two synthetic chunks**, for **113 chunks total**:
+
+| Source ID | Official source | Snapshot chunks |
+|---|---|---:|
+| `interrupts` | [LangGraph interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | 38 |
+| `persistence` | [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | 6 |
+| `mcp-architecture` | [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) | 17 |
+| `mcp-tools` | [MCP tools specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools) | 11 |
+| `rrf` | [Elasticsearch RRF](https://www.elastic.co/docs/reference/elasticsearch/rest-apis/reciprocal-rank-fusion) | 31 |
+| `reranking` | [Sentence Transformers retrieve/rerank](https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html) | 8 |
+
+`workspace-note` and `injection-fixture` are explicitly synthetic research-workspace documents, used only to exercise permissions and untrusted instructions. There are no real internal company secrets in the repository. The older eight self-authored Markdown tutorials remain a separate legacy corpus and are not counted as these official sources.
+
+Ingestion removes layout/navigation content, chunks at a 1,200-character cap with 150-character overlap, and computes normalized **384-dimensional `all-MiniLM-L6-v2` embeddings**. Retrieval uses FAISS exact inner product, BM25, rank fusion with `k=60`, and **`cross-encoder/ms-marco-MiniLM-L-6-v2`**. Scores from the cross-encoder are not calibrated probabilities.
+
+[research-manifest.json](research-manifest.json) records original/resolved URLs, fetch times, cleaned-content/response hashes, chunk counts and index hashes. Full publisher snapshots and vectors stay in ignored local storage. Cached snapshots are reused after hash validation; a fresh fetch of a mutable website can change the corpus and requires a new evaluation identity. The first measured snapshot contains some imperfectly decoded publisher punctuation; it has not been silently normalized and scored as if unchanged.
+
+## A useful failure: stricter evidence loses one legitimate question
+
+Eight development questions select the evidence gate. Eighteen different retrieval questions are then evaluated: **16 with expected source documents and two outside scope**.
+
+| Configuration | Source hit@5 | Source MRR@5 | Unsupported queries accepted / 2 |
+|---|---:|---:|---:|
+| Dense, no gate | 16/16 | 0.8854 | 2 |
+| Dense + BM25 + RRF, no gate | 16/16 | 0.9271 | 2 |
+| Hybrid + cross-encoder + gate | 15/16 | 0.8490 | 0 |
+
+The selected raw-score threshold is **−3.3842663764953613**: maximize development answerability F1, prefer fewer false accepts, then the higher threshold on a tie. Test questions do not select it.
+
+The full pipeline rejects both unsupported questions, but also drops a legitimate RRF paraphrase. That is a visible false negative, not a result removed from the denominator. The full configuration changes reranking and gating together; these results do not isolate reranking's contribution. The benchmark labels expected **documents**, not exhaustive relevant chunks or complete answer faithfulness. Some other retrieved sources could also contain valid evidence. [Full retrieval report](research-evaluation.json) · [Dev gate selection](research-gate.json)
+
+## Run the service
+
+The easiest full walkthrough uses the companion Copilot's `start.bat`, with both repositories as siblings. See its [setup and learning guide](https://github.com/Boothill2001/AI_AGENT_LANGGHAPH).
+
+Standalone retrieval setup on Windows, Python 3.11:
+
+```powershell
+py -3.11 -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe scripts/ingest_research.py
+.venv\Scripts\python.exe scripts/evaluate_research.py
+.venv\Scripts\python.exe -m uvicorn api.research_app:app --host 127.0.0.1 --port 8011
+```
+
+The v2 service requires the shared `COPILOT_SECRET_FILE` generated by the companion agent, or the default sibling agent path. It verifies signed identity and audience; it does not accept identity claims from the query. For development, log in through the companion Agent API and pass that bearer token. This is local demo authentication, not production SSO or a complete token-revocation system.
+
+| Endpoint | Behavior |
 |---|---|
-| Semantic chunking | Markdown heading/paragraph boundaries + size cap + overlap (`src/rag/chunking.py`) |
-| Dense retrieval | `all-MiniLM-L6-v2` embeddings, FAISS `IndexFlatIP` cosine search (`vectorstore.py`) |
-| Sparse retrieval | BM25 (`rank_bm25`) over tokenized chunks (`retrieval.py`) |
-| Fusion | Reciprocal Rank Fusion, k=60 |
-| Re-ranking | Cross-encoder `ms-marco-MiniLM-L-6-v2`, top-20 → top-5 |
-| Generation | DeepSeek (`deepseek-chat`) via OpenAI-compatible SDK, grounding prompt with inline citations |
-| Graceful degradation | No key / provider error → extractive answer from top passages (demo never dies) |
-| API | FastAPI, async endpoint, Pydantic schemas, `/health`, Swagger at `/docs` |
-| UI | Streamlit chat with per-stage latency and source inspection |
-| Evaluation | Hit-rate@3 ablation: dense-only vs hybrid vs hybrid+rerank (`scripts/evaluate.py`) |
+| `GET /research/health` | Index/gate readiness and manifest identity |
+| `GET /research/data` | Authenticated, permission-filtered chunk inspection |
+| `POST /search` | Authenticated structured evidence and retrieval trace |
 
-## Retrieval evaluation (ablation)
+The separate legacy service can still be started with `uvicorn api.main:app --port 8010`, exposing `/ask` over the original tutorial index. It retains its existing extractive fallback behavior. It does not expose the new workspace-only fixtures and is not the authenticated production-style research boundary. Legacy `scripts/build_index.py`, `scripts/evaluate.py` and `ui/app.py` are retained for that tutorial.
 
-Measured over a 16-question test set against the bundled knowledge base
-(`python scripts/evaluate.py`):
+## Verify the boundary
 
-| Configuration | Hit-rate@3 | MRR@3 |
-|---|---|---|
-| Dense-only (FAISS) | 93.8% | 0.938 |
-| Hybrid (dense + BM25, RRF) | **100.0%** | **1.000** |
-| Hybrid + cross-encoder re-ranking | **100.0%** | 0.969 |
-
-Hybrid fusion recovers the questions dense retrieval misses. On this small corpus
-(43 chunks) hybrid already saturates the metric, so the re-ranker cannot add headroom —
-its value grows with corpus size, where first-stage rankings get noisier. The ablation
-harness is exactly how you'd demonstrate that on a production corpus.
-
-Measured warm-request latency on CPU: dense search ~9 ms, BM25 <1 ms,
-cross-encoder re-rank ~380 ms, DeepSeek generation ~1-3 s.
-
-## Quickstart
-
-```bash
-# 1. Install (Python 3.10+)
-python -m venv .venv
-.venv\Scripts\activate          # Windows   (Linux/macOS: source .venv/bin/activate)
-pip install -r requirements.txt
-
-# 2. Configure the LLM (optional — pipeline falls back to extractive mode without it)
-copy .env.example .env          # then put your DeepSeek key in .env
-
-# 3. Build the index
-python scripts/build_index.py
-
-# 4. Start the API
-uvicorn api.main:app --port 8000
-
-# 5. Start the UI (new terminal)
-streamlit run ui/app.py
+```powershell
+.venv\Scripts\python.exe -m pytest tests -q
 ```
 
-### Run with Docker
+Tests cover chunking, rank fusion and authorization before **both** retrievers. The ACL test deliberately gives a private chunk the strongest dense vector and a matching lexical term; it still cannot enter the outsider's candidate rankings. These unit tests use controlled vectors and require no API key or downloaded model. Actual local embedding/reranking measurements are recorded in the research report.
 
-```bash
-docker compose up --build
-# API  -> http://localhost:8000/docs
-# UI   -> http://localhost:8501
-```
+CI installs the small `requirements-ci.txt` test environment, runs unit checks and compiles code. It deliberately does not download mutable public documents, change a frozen benchmark, or call a paid model on every push. Install full `requirements.txt` for live service/model runs.
 
-First start downloads the embedding/re-ranker models (~300 MB) into a named volume
-and builds the index; subsequent starts are fast.
+## Limits that matter
 
-### Run the tests
-
-```bash
-pytest tests/ -v          # unit tests: chunking, RRF fusion, config parsing
-python scripts/evaluate.py  # retrieval ablation metrics
-```
-
-CI (GitHub Actions) runs the unit tests plus an end-to-end smoke test on every push:
-build the index, run a hybrid query, and verify the extractive fallback path works
-without an LLM key.
-
-Or query the API directly:
-
-```bash
-curl -X POST http://localhost:8000/ask \
-  -H "Content-Type: application/json" \
-  -d '{"question": "Why does hybrid search beat dense-only retrieval?"}'
-```
-
-Response shape:
-
-```json
-{
-  "question": "...",
-  "answer": "Hybrid search combines ... [1][2]",
-  "mode": "llm",
-  "sources": [{"chunk_id": 12, "source": "03_hybrid_search.md", "section": "...", "score": 8.1, "retrievers": ["dense", "bm25"], "text": "..."}],
-  "timings_ms": {"dense_search": 25.0, "bm25_search": 1.2, "rerank": 180.0, "generation": 2100.0}
-}
-```
-
-## Project layout
-
-```
-data/docs/        # knowledge base (8 English docs on RAG / AI engineering)
-src/rag/          # the pipeline: config, chunking, embeddings, vectorstore,
-                  # retrieval (hybrid + rerank), generation, pipeline
-scripts/          # build_index.py, evaluate.py
-api/              # FastAPI app
-ui/               # Streamlit chat UI
-```
-
-## Design decisions
-
-- **Why hybrid?** Dense embeddings miss exact tokens (codes, acronyms); BM25 misses
-  paraphrases. RRF fuses both by rank, immune to score-scale mismatch.
-- **Why re-rank?** A cross-encoder attends across query & passage jointly — far more
-  accurate than bi-encoder similarity, affordable when applied to only ~20 candidates.
-- **Why local embeddings?** Zero cost, no network dependency, reproducible demo.
-  Swapping to OpenAI/Cohere embeddings is a one-line change in `config.py`.
-- **Why extractive fallback?** Production services degrade, they don't 500. If the LLM
-  is down or out of quota, the API still returns the top passages, clearly labeled.
-
-## Author
-
-**Nguyen Minh Tri** — Senior AI Engineer (GenAI / LLM applications)
-📧 minhtri.cm2001@gmail.com
+This is a small, historical technical-document experiment. It does not prove enterprise retrieval scale, semantic faithfulness of every answer, safe public deployment, actual employee permissions or business savings. Exact FAISS search over the authorized subset is appropriate at this corpus size and must be revisited for large, multi-tenant indexes. RBAC/workspace fixtures illustrate policy behavior; they are not access control over a real company's documents.

@@ -1,5 +1,7 @@
 # Secrets — never commit
 .env
+data/research/
+var/
 
 # Build artifacts
 index/
