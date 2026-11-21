@@ -40,7 +40,7 @@ def clean(html):
     return "\n\n".join(lines)
 
 
-def ingest():
+def ingest(runtime_only=False):
     location = ROOT / "data/research"
     location.mkdir(parents=True, exist_ok=True)
     manifest, chunks = [], []
@@ -84,9 +84,12 @@ def ingest():
               "chunk_metadata_sha256": sha256((location / "chunks.json").read_bytes()).hexdigest(),
               "embedding_file_sha256": sha256((location / "embeddings.npy").read_bytes()).hexdigest(),
               "notice": "Official snapshots are local-only; fetch dates and content hashes identify the exact evaluated corpus. Synthetic fixtures test ACL and injection only."}
-    (ROOT / "research-manifest.json").write_text(json.dumps(public, indent=2), encoding="utf-8")
+    (location / "runtime-manifest.json" if runtime_only else ROOT / "research-manifest.json").write_text(json.dumps(public, indent=2), encoding="utf-8")
     return public
 
 
 if __name__ == "__main__":
-    ingest()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--runtime-only", action="store_true", help="Keep committed historical benchmark artifacts untouched")
+    ingest(parser.parse_args().runtime_only)

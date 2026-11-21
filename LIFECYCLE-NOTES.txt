@@ -1,0 +1,17 @@
+ADVANCED RAG — LIFECYCLE IMPLEMENTATION NOTES
+
+Entry points: start.bat (companion workspace), api/research_app.py (port 8011).
+Core: src/rag/lifecycle.py, service.py, research.py, api/research.py.
+State: ignored var/lifecycle/registry.sqlite and generations/<uuid>/.
+Migration: scripts/bootstrap_lifecycle.py; immutable historical reports are not rewritten.
+Runtime ingestion: scripts/ingest_research.py --runtime-only.
+Safety: ACL + live publication state + revision/purchase-date applicability before BOTH retrievers.
+Publication: immutable files + manifest validation + generation/epoch compare-and-swap.
+Withdrawal: registry overlay immediately; rollback does not restore revoked permissions.
+Technical default revision differs from an explicit historical revision.
+Policy Lab is synthetic. Intervals are purchase-date based and end-exclusive.
+New generations are unscored; inherited thresholds are not a new quality claim.
+Keyless tests: python -m pytest tests -q.
+Live runtime check: python scripts/verify_lifecycle_runtime.py (running companion + real local embedding weights required; creates and withdraws fixtures).
+The old /ask tutorial remains outside this contract. No PDF ingestion.
+Limit: local synchronous full builds, no distributed transaction or automatic generation cleanup.

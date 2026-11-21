@@ -34,4 +34,4 @@ def verify(token):
 
 def allowed(document, principal):
     return document.get("workspace", "public") == "public" or (
-        document.get("workspace") == principal["workspace"] and principal["role"] in ("researcher", "reviewer"))
+        document.get("workspace") == principal["workspace"] and principal["role"] in ("researcher", "reviewer", "curator"))

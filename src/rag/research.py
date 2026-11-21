@@ -18,17 +18,17 @@ ROOT = Path(__file__).resolve().parents[2]
 
 class ResearchIndex:
     def __init__(self, location=None):
-        self.location = location or ROOT / "data/research"
+        self.location = Path(location or ROOT / "data/research")
         self.chunks = json.loads((self.location / "chunks.json").read_text(encoding="utf-8"))
         self.vectors = np.load(self.location / "embeddings.npy")
         self.manifest_hash = sha256((ROOT / "research-manifest.json").read_bytes()).hexdigest()
         self.threshold = json.loads((ROOT / "research-gate.json").read_text()).get("threshold", 0.) if (ROOT / "research-gate.json").exists() else 0.
 
-    def search(self, query, principal, source_id=None, mode="rerank"):
+    def search(self, query, principal, source_id=None, mode="rerank", candidate_ids=None):
         if mode not in ("dense", "hybrid", "rerank"):
             raise ValueError("Invalid retrieval mode")
         start = perf_counter()
-        ids = [i for i, c in enumerate(self.chunks) if allowed(c, principal) and (not source_id or c["source_id"] == source_id)]
+        ids = [i for i, c in enumerate(self.chunks) if (candidate_ids is None or i in candidate_ids) and allowed(c, principal) and (not source_id or c["source_id"] == source_id)]
         if source_id and not ids:
             return {"status": "forbidden", "evidence": [], "trace": {}, "message": "Requested source is not accessible."}
         if not ids:

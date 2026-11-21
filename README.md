@@ -8,6 +8,67 @@ The companion Copilot owns planning, arithmetic, reviewer approval and report st
 
 ![The live Copilot displays structured results returned by this service](assets/research-evidence.png)
 
+## A policy changed. The old purchase did not.
+
+A customer bought on **October 25** and asked on **November 21**. A search engine that always picks the newest refund policy would select the wrong rule. This release makes **eligibility a prerequisite to relevance**, rather than asking an LLM to repair an invalid candidate set.
+
+![Live Policy Lab: an October purchase selects v1 and excludes v2 before retrieval](assets/lifecycle-policy.png)
+
+| Input | Decision before ranking | Output |
+|---|---|---|
+| Purchase `2026-10-25`, question `2026-11-21` | v1 applies to the purchase; v2 does not | `refund_v1`, 30-day window |
+| Purchase `2026-10-31` | Last day of v1's half-open interval | Only v1 candidates |
+| Purchase `2026-11-01` | First day of v2 | `refund_v2`, 7-day window |
+| No purchase date | The business date is unknown | `needs_context`, no policy evidence |
+| Explicit v2 + October purchase | Requested revision conflicts with purchase date | `context_conflict`, no evidence |
+| Withdrawn source, including an explicit historical query | Live registry denies new use | No withdrawn chunk in dense or BM25 |
+
+**Policy Lab is fictional English training data.** Its rules are not legal advice or a real company's policy. The technical corpus remains real official documentation. No PDF ingestion was added.
+
+```mermaid
+flowchart LR
+    I[Query + trusted identity + business context] --> ACL[Access permitted?]
+    ACL --> P[Published and not withdrawn?]
+    P --> V[Correct revision / purchase date?]
+    V --> D[Dense search]
+    V --> B[BM25]
+    D --> F[RRF / rerank / gate]
+    B --> F
+    F --> E[Evidence + chunk UID + revision + generation]
+    E --> C[Revalidate before the next agent use]
+```
+
+### Publication and withdrawal solve different problems
+
+SQLite records source revisions, content hashes, ownership, publication state, defaults, audit events, build state and the active generation. Refresh is explicit: unchanged cleaned text updates its check time without another revision. A changed source is staged, not immediately searchable.
+
+A build writes a **new immutable generation directory** with chunks, vectors, gate and a hashed manifest. Publication validates file hashes, row counts, finite vectors, dimensions, IDs and metadata. An SQLite transaction checks both the original generation and registry epoch before switching the serving pointer. A stale or failed build cannot overwrite newer work. Cache keys include the generation; requests pin one generation, and the next request sees publication without restarting the service.
+
+**Withdrawal is immediate through the registry**, including for cached indexes and historical queries. Supersession only changes the default technical revision: an explicit historical revision can remain usable. Policy applicability uses purchase-date intervals, not upload date, document age or the newest revision. Overlapping published intervals in a policy family/workspace are rejected. Rollback restores a generation's defaults without undoing current withdrawals. A registry change during ranking discards that response, including its candidate trace, and asks the caller to retry.
+
+![Live curator controls for source revision publication and withdrawal](assets/lifecycle-curator.png)
+
+### Try the complete lifecycle
+
+Open the companion workspace, tab **06 · Document Lifecycle**. Sign in as `curator` to stage a fictional `lifecycle-demo` source, publish it, change its text and publish another generation. Sign in as `researcher` to search it, then withdraw the revision and revalidate the earlier evidence. A report `reviewer` cannot publish documents. Curators manage only sources owned by their workspace; source visibility and source ownership are separate.
+
+[Live publication and date-boundary check](artifacts/lifecycle-runtime.json) records real CPU embedding/retrieval results, two generations, unchanged refresh, explicit historical lookup and withdrawal. This is an operational check, **not a new retrieval-quality score**.
+
+| API | Boundary |
+|---|---|
+| `POST /search` | Optional `corpus`, `revision`, `purchase_date`; technical corpus remains the default |
+| `GET /research/data` | The same ACL, lifecycle and applicability rules as search |
+| `POST /research/validate` | Resolve immutable chunk references; validate current eligibility without trusting caller text |
+| `GET /research/lifecycle` | Authorized source revisions and audit history; no forbidden source names/text |
+| `POST /research/curator/refresh` | Stage inline text or explicitly refresh an existing registered URL |
+| `POST /research/curator/publish` | Build, validate, then compare-and-swap publication |
+| `POST /research/curator/withdraw` | Immediate registry revocation |
+| `POST /research/curator/rollback` | Expected-generation check; current withdrawals still win |
+
+**Evidence identity is not a new benchmark.** The committed historical `research-manifest.json`, `research-gate.json` and `research-evaluation.json` are preserved. Bootstrap creates separate generation manifests; their inherited gate is not newly calibrated on the Policy Lab or changed corpus. Runtime ingestion uses `--runtime-only` and does not overwrite those historical reports.
+
+[Implementation notes](LIFECYCLE-NOTES.txt) · [Vietnamese hands-on guide](LIFECYCLE-GUIDE.vi.txt)
+
 ## Input → retrieval decisions → structured evidence
 
 ```mermaid
@@ -24,7 +85,7 @@ flowchart LR
 
 A request such as `{"query":"How does RRF combine rankings?","source_id":"rrf","mode":"rerank"}` returns:
 
-- `status`: `ok`, `insufficient_evidence`, or `forbidden`; operational failures use HTTP errors.
+- `status`: `ok`, `insufficient_evidence`, `needs_context`, `context_conflict`, or `registry_changed`; operational failures use HTTP errors.
 - `evidence`: authorized chunk IDs, source URLs, section text, source hashes, rank contributions and scores.
 - `trace`: authorized candidate count, dense and BM25 rankings, RRF fusion, reranking, gate decision, timings and corpus-manifest hash.
 
@@ -32,7 +93,7 @@ The bearer token arrives from the trusted agent runtime. There is no user-contro
 
 ## The data is real; access-control fixtures are fictional
 
-The recorded corpus contains **six official source pages**, **111 official-document chunks**, and **two synthetic chunks**, for **113 chunks total**:
+The frozen benchmark corpus contains **six official source pages**, **111 official-document chunks**, and **two synthetic chunks**, for **113 chunks total**:
 
 | Source ID | Official source | Snapshot chunks |
 |---|---|---:|
@@ -72,8 +133,8 @@ Standalone retrieval setup on Windows, Python 3.11:
 ```powershell
 py -3.11 -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
-.venv\Scripts\python.exe scripts/ingest_research.py
-.venv\Scripts\python.exe scripts/evaluate_research.py
+.venv\Scripts\python.exe scripts/ingest_research.py --runtime-only
+.venv\Scripts\python.exe scripts/bootstrap_lifecycle.py
 .venv\Scripts\python.exe -m uvicorn api.research_app:app --host 127.0.0.1 --port 8011
 ```
 
@@ -81,7 +142,7 @@ The v2 service requires the shared `COPILOT_SECRET_FILE` generated by the compan
 
 | Endpoint | Behavior |
 |---|---|
-| `GET /research/health` | Index/gate readiness and manifest identity |
+| `GET /research/health` | Active generation and registry epoch |
 | `GET /research/data` | Authenticated, permission-filtered chunk inspection |
 | `POST /search` | Authenticated structured evidence and retrieval trace |
 
@@ -98,5 +159,8 @@ Tests cover chunking, rank fusion and authorization before **both** retrievers. 
 CI installs the small `requirements-ci.txt` test environment, runs unit checks and compiles code. It deliberately does not download mutable public documents, change a frozen benchmark, or call a paid model on every push. Install full `requirements.txt` for live service/model runs.
 
 ## Limits that matter
+
+The registry and generation cache are a local implementation, not a distributed control plane. Publication currently embeds the small full published corpus synchronously. There is no background job queue, generation garbage collection, PDF ingestion or automatic source crawling. A refresh URL must already be registered; callers cannot submit arbitrary fetch URLs. Revocation checks define usage boundaries, not a distributed transaction with the companion report database. The legacy tutorial `/ask` does **not** have this lifecycle or purchase-date contract.
+
 
 This is a small, historical technical-document experiment. It does not prove enterprise retrieval scale, semantic faithfulness of every answer, safe public deployment, actual employee permissions or business savings. Exact FAISS search over the authorized subset is appropriate at this corpus size and must be revisited for large, multi-tenant indexes. RBAC/workspace fixtures illustrate policy behavior; they are not access control over a real company's documents.

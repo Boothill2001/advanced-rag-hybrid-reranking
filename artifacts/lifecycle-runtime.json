@@ -1,0 +1,35 @@
+{
+  "kind": "Live local runtime safety checks; not a quality benchmark",
+  "created": 1795241670.9384997,
+  "source": "runtime-update-demo",
+  "generations": [
+    "e79c06ce52a34c5595fb34f15b3f00ff",
+    "160b8c0745bf412db71c0b672ce991cf"
+  ],
+  "revisions": [
+    "r-bb703c827a49",
+    "r-e43f44a5a603"
+  ],
+  "outputs": [
+    "SYNTHETIC lifecycle integration fixture\nThe current demo review budget is 137 units. Verification run 1795241658461120000. This is fictional learning data.",
+    "SYNTHETIC lifecycle integration fixture\nThe current demo review budget is 193 units. Verification run 1795241658461120000. This is fictional learning data."
+  ],
+  "service_restart_requested": false,
+  "unchanged_refresh_created_revision": false,
+  "withdrawn_default_evidence": [],
+  "explicit_historical_revision_valid": true,
+  "policy_boundaries": [
+    {
+      "purchase_date": "2026-10-25",
+      "selected_revision": "refund_v1"
+    },
+    {
+      "purchase_date": "2026-10-31",
+      "selected_revision": "refund_v1"
+    },
+    {
+      "purchase_date": "2026-11-01",
+      "selected_revision": "refund_v2"
+    }
+  ]
+}
