@@ -60,8 +60,15 @@ class ResearchIndex:
             selected.sort(key=lambda x: x["rerank_score"], reverse=True)
         evidence = [{**self.chunks[v["chunk_id"]], **v} for v in selected[:5]]
         accepted = bool(evidence) and (mode != "rerank" or evidence[0]["rerank_score"] >= self.threshold)
+        def refs(rows):
+            return [{"chunk_id": i, "chunk_uid": self.chunks[i].get("chunk_uid", str(i)),
+                     "source_id":self.chunks[i]["source_id"]} for i in rows]
+        stages={"dense":refs([i for i,_ in dense]),"bm25":refs([i for i,_ in sparse]),
+                "rrf":refs([r["chunk_id"] for r in before]),
+                "reranked":refs([r["chunk_id"] for r in selected]),
+                "pre_gate":refs([r["chunk_id"] for r in selected[:5]])}
         return {"status": "ok" if accepted else "insufficient_evidence", "evidence": evidence if accepted else [],
-                "trace": {"authorized_candidates": len(ids), "dense": dense, "bm25": sparse,
+                "trace": {"stages":stages,"authorized_candidates": len(ids), "dense": dense, "bm25": sparse,
                           "fusion": before, "reranked": selected[:5], "gate_threshold": self.threshold,
                           "gate_passed": accepted, "mode": mode, "manifest_sha256": self.manifest_hash,
                           "retrieval_ms": retrieval_ms, "rerank_ms": (perf_counter() - rerank_start) * 1000,

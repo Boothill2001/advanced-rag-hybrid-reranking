@@ -48,6 +48,6 @@ class ResearchService:
     def data(self, user, **context):
         snap, idx, ids, status, reasons = self.select(user, context)
         if self.manager.snapshot()['epoch'] != snap['epoch']:
-            return {'generation': snap['generation'], 'status':'registry_changed','chunks':[], 'dimension':int(idx.vectors.shape[1]),'eligibility':[]}
-        return {'generation': snap['generation'], 'status': status, 'chunks': [idx.chunks[i] for i in ids],
+            return {'generation': snap['generation'], 'registry_epoch':snap['epoch'], 'status':'registry_changed','chunks':[], 'dimension':int(idx.vectors.shape[1]),'eligibility':[]}
+        return {'generation': snap['generation'], 'registry_epoch':snap['epoch'], 'status': status, 'chunks': [idx.chunks[i] for i in ids],
                 'dimension': int(idx.vectors.shape[1]), 'eligibility': reasons}

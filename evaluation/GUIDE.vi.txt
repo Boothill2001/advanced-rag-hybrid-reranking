@@ -1,0 +1,31 @@
+HƯỚNG DẪN — ĐỌC METRIC RAG TỪ A ĐẾN Z
+
+Mở start.bat, đăng nhập researcher và vào tab 03 · Experiments.
+Bảng mới có generation và dataset hash riêng. Bảng Historical bên dưới là thí nghiệm cũ; không trộn hai bộ số.
+
+1. Source Hit@5: có ít nhất một chunk thuộc nguồn kỳ vọng trong năm chunk cuối không?
+2. Source MRR@5: nguồn kỳ vọng xuất hiện lần đầu ở vị trí nào? Vị trí 1 được 1; vị trí 2 được 0.5; không có được 0.
+3. Recall@K: số chunk liên quan lấy được chia tổng chunk liên quan đã gán nhãn. Cần nhãn đầy đủ, không chỉ nhãn top K.
+4. Precision@5: số chunk liên quan trong top 5 chia 5. Trả thiếu vẫn chia 5. Policy có ít candidate nên không đem P@5 so với technical.
+5. Faithfulness: từng claim về nghiệp vụ/kỹ thuật có được evidence hỗ trợ không? Câu hỏi bổ sung và thông báo từ chối không tự được 1 điểm.
+6. Answer correctness: có trả lời đúng và đủ những ý kỳ vọng, đúng ngày mua và policy không? Đúng theo policy v2 nhưng câu hỏi về giao dịch thuộc v1 vẫn sai.
+7. Citation support: citation không chỉ tồn tại; đoạn được trích phải hỗ trợ claim tương ứng.
+8. p95: xem n và phương pháp tính. Báo cáo mới dùng nội suy tuyến tính tại (n-1)*0.95; báo cáo lịch sử có cách tính riêng.
+
+Đi theo một ca:
+Input -> Labels -> Candidates -> Evidence -> Answer & judgment.
+- Candidate union thiếu evidence đúng: lỗi có thể nằm ở bước tìm candidate.
+- Candidate có, top 5 không có: kiểm tra rerank/thứ tự.
+- Trước gate có, sau gate rỗng: gate đã từ chối.
+- Evidence đủ nhưng answer thiếu ý/bịa claim: vấn đề ở generation hoặc cách dùng context.
+- Faithfulness cao nhưng correctness thấp: xem nhầm ngữ cảnh nghiệp vụ, thiếu ý hoặc trả lời không đúng câu hỏi.
+
+Đọc latency:
+- HTTP service time: đo bên trong service, không gồm network round trip.
+- HTTP benchmark: client đo request thực; 200 lượt ở mỗi concurrency, warm-up tách riêng.
+- Cold start: một mẫu riêng, không gọi là p95.
+- Agent task time: gồm model, MCP và graph; loại thời gian chờ reviewer. Reviewer trong benchmark là fixture được ghi rõ.
+- Timeout và lỗi không bị xóa khỏi số lượt thử. Judge lỗi là chưa chấm được, không tự biến thành 0 hay 1.
+
+Giới hạn quan trọng:
+Bộ câu hỏi tự soạn, nguồn thật nhưng nhãn và judge được AI hỗ trợ; chưa có reviewer độc lập. Lặp lại judge cùng model chỉ kiểm tra tính nhất quán, không chứng minh ground truth đúng. Số liệu không phải production SLO hoặc tác động kinh doanh thực tế.

@@ -1,0 +1,1135 @@
+{
+  "version": "evidence-eval-v1",
+  "label_notice": "Self-authored questions; AI-assisted relevance labels; no independent human reviewer. Known source topics overlap earlier learning experiments. Test cases are frozen before evaluation and not used to tune the gate.",
+  "pilot_ids": [
+    "T01",
+    "T02",
+    "T06",
+    "T07",
+    "T11",
+    "T16",
+    "U01",
+    "U02",
+    "P01",
+    "P02",
+    "C01",
+    "C02"
+  ],
+  "cases": [
+    {
+      "id": "T01",
+      "split": "dev",
+      "family": "rrf-1",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What is the default rank constant in this RRF implementation and what is its lower bound?",
+      "reference_claims": [
+        "The default rank constant is 60.",
+        "Its minimum value is 1."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "rrf"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T02",
+      "split": "dev",
+      "family": "rrf-2",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "If kNN returns k=80 results but the RRF rank window is 50, how many kNN results enter fusion?",
+      "reference_claims": [
+        "The kNN list is truncated to 50 by rank_window_size."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "rrf"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T03",
+      "split": "test",
+      "family": "rrf-3",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Should a caller supply a point-in-time object when using the documented RRF retriever?",
+      "reference_claims": [
+        "Avoid supplying a point in time.",
+        "RRF creates an internal point in time shared by sub-retrievers for consistency."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "rrf"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T04",
+      "split": "test",
+      "family": "rrf-4",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Does the documented RRF retriever support scroll, explicit sort and rescore?",
+      "reference_claims": [
+        "Scroll, sort and rescore are unsupported.",
+        "Using unsupported features results in an exception."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "rrf"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T05",
+      "split": "test",
+      "family": "rrf-5",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "How many child retrievers does the documented RRF API require, and are they weighted equally?",
+      "reference_claims": [
+        "At least two child retrievers are required.",
+        "Each child retriever has equal weight."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "rrf"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T06",
+      "split": "dev",
+      "family": "interrupts-6",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What can response_schema add to an interrupt resume response?",
+      "reference_claims": [
+        "A response schema validates the resume response.",
+        "A Pydantic model can specify a typed response."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "interrupts"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T07",
+      "split": "dev",
+      "family": "interrupts-7",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Why should a broad try/except not swallow an interrupt call?",
+      "reference_claims": [
+        "Interrupt uses an exception to pause execution.",
+        "A broad exception handler can catch it and prevent the intended pause."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "interrupts"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T08",
+      "split": "test",
+      "family": "interrupts-8",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "With several interrupt calls inside one node, what ordering constraint matters on resume?",
+      "reference_claims": [
+        "Resume values are matched by interrupt order.",
+        "Do not reorder interrupt calls inside the node."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "interrupts"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T09",
+      "split": "test",
+      "family": "interrupts-9",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What kinds of values can be sent as an interrupt payload?",
+      "reference_claims": [
+        "The interrupt payload must be JSON-serializable."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "interrupts"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T10",
+      "split": "test",
+      "family": "interrupts-10",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "When a graph is paused for approval, is there an automatic timeout requiring immediate resume?",
+      "reference_claims": [
+        "The graph waits indefinitely until resumed.",
+        "Checkpoint state allows resuming later."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "interrupts"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T11",
+      "split": "dev",
+      "family": "persistence-11",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Will MemorySaver preserve a conversation after the Python process restarts?",
+      "reference_claims": [
+        "MemorySaver does not persist between restarts.",
+        "Use persistent checkpoint storage for restart durability."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "persistence"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T12",
+      "split": "dev",
+      "family": "persistence-12",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "For a preference shared across conversation threads, should it live in a checkpointer or a store?",
+      "reference_claims": [
+        "Use a store for long-term cross-thread data.",
+        "Checkpointers hold thread-scoped graph state."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "persistence"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T13",
+      "split": "test",
+      "family": "persistence-13",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What workaround is documented when a PostgresSaver thread identifier is too long?",
+      "reference_claims": [
+        "Use a shorter thread identifier.",
+        "The example uses a UUID string limited to 255 characters."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "persistence"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T14",
+      "split": "test",
+      "family": "persistence-14",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What maintenance is suggested when persisted checkpoints grow without bounds?",
+      "reference_claims": [
+        "Consider a scheduled job to delete checkpoints older than a chosen retention period."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "persistence"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T15",
+      "split": "test",
+      "family": "persistence-15",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Which documented saver is local file based, and which supports PostgreSQL and async operation?",
+      "reference_claims": [
+        "SqliteSaver is local file-based storage for development.",
+        "PostgresSaver supports PostgreSQL and async operation."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "persistence"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T16",
+      "split": "dev",
+      "family": "mcp-architecture-16",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Which transport suits local subprocess communication, and which supports remote servers?",
+      "reference_claims": [
+        "Stdio communicates through standard input and output locally.",
+        "Streamable HTTP supports remote server communication."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-architecture"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T17",
+      "split": "dev",
+      "family": "mcp-architecture-17",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Where should a stdio MCP server send logs rather than protocol messages?",
+      "reference_claims": [
+        "Send logging to stderr for stdio servers."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-architecture"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T18",
+      "split": "test",
+      "family": "mcp-architecture-18",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Which MCP layer defines JSON-RPC primitives, and which handles framing and communication channels?",
+      "reference_claims": [
+        "The data layer defines the JSON-RPC protocol and core primitives.",
+        "The transport layer handles channels and message framing."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-architecture"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T19",
+      "split": "test",
+      "family": "mcp-architecture-19",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "In MCP server features, how do tools, resources and prompts differ?",
+      "reference_claims": [
+        "Tools enable AI actions.",
+        "Resources provide context data.",
+        "Prompts provide interaction templates."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-architecture"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T20",
+      "split": "test",
+      "family": "mcp-architecture-20",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What authentication mechanisms are described for Streamable HTTP and what token acquisition approach is recommended?",
+      "reference_claims": [
+        "HTTP authentication can use bearer tokens, API keys or custom headers.",
+        "MCP recommends OAuth for obtaining authentication tokens."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-architecture"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T21",
+      "split": "dev",
+      "family": "mcp-tools-21",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "How are inputSchema and outputSchema used in an MCP tool definition?",
+      "reference_claims": [
+        "inputSchema defines expected parameters.",
+        "Optional outputSchema describes the expected output structure."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-tools"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T22",
+      "split": "test",
+      "family": "mcp-tools-22",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "How does a client continue a paginated tools/list response?",
+      "reference_claims": [
+        "Use the returned nextCursor as the cursor in a subsequent tools/list request."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-tools"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T23",
+      "split": "test",
+      "family": "mcp-tools-23",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "How can an MCP tools/call result signal that the tool execution itself failed?",
+      "reference_claims": [
+        "The tool result can set isError to true."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-tools"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T24",
+      "split": "test",
+      "family": "mcp-tools-24",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What notification announces that the tool catalog changed, and what capability advertises support?",
+      "reference_claims": [
+        "notifications/tools/list_changed announces catalog changes.",
+        "The tools capability listChanged advertises support."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-tools"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T25",
+      "split": "test",
+      "family": "mcp-tools-25",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What distinction does the tool schema make between name and title?",
+      "reference_claims": [
+        "name is the unique tool identifier.",
+        "title is an optional human-readable display name."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "mcp-tools"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T26",
+      "split": "dev",
+      "family": "reranking-26",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Why does the retrieve-and-rerank design avoid cross-encoding every document in a million-entry collection?",
+      "reference_claims": [
+        "Cross-encoding all query-document pairs is slow.",
+        "An efficient retriever first narrows the collection to candidates."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "reranking"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T27",
+      "split": "test",
+      "family": "reranking-27",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What lexical-search weakness motivates dense semantic retrieval in the documented pipeline?",
+      "reference_claims": [
+        "Literal lexical matching can miss synonyms, acronyms and spelling variations.",
+        "Dense retrieval compares semantic embeddings."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "reranking"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T28",
+      "split": "test",
+      "family": "reranking-28",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "For a small collection of paragraphs in a single document, must the example first run a bi-encoder retriever?",
+      "reference_claims": [
+        "For a small paragraph set the example skips retrieval.",
+        "It directly scores paragraphs with a cross-encoder."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "reranking"
+      ],
+      "context": {},
+      "wants_report": true
+    },
+    {
+      "id": "T29",
+      "split": "test",
+      "family": "reranking-29",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "Can document embeddings be prepared separately from query embeddings with a bi-encoder?",
+      "reference_claims": [
+        "The bi-encoder computes document and query embeddings independently."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "reranking"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "T30",
+      "split": "test",
+      "family": "reranking-30",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "After Wikipedia candidates are reranked in the example, how many highest-scoring passages are shown?",
+      "reference_claims": [
+        "The five highest-scoring passages are presented."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "reranking"
+      ],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U01",
+      "split": "dev",
+      "family": "unsupported-1",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What is the current balance of my private savings account?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U02",
+      "split": "dev",
+      "family": "unsupported-2",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What is my personal home electricity bill for this month?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U03",
+      "split": "test",
+      "family": "unsupported-3",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What is the exact parcel location of my shipment right now?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U04",
+      "split": "test",
+      "family": "unsupported-4",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What is the current stock quantity in my private warehouse?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U05",
+      "split": "test",
+      "family": "unsupported-5",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What temperature did the sensor in my bedroom measure today?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "U06",
+      "split": "test",
+      "family": "unsupported-6",
+      "corpus": "technical",
+      "user": "researcher",
+      "query": "What was the amount of my last grocery purchase?",
+      "reference_claims": [
+        "The corpus does not contain the requested private or live information; do not invent a value."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {},
+      "wants_report": false
+    },
+    {
+      "id": "P01",
+      "split": "dev",
+      "family": "policy-valid-1",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-10-25, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P02",
+      "split": "dev",
+      "family": "policy-valid-2",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-11-01, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v2.",
+        "The refund window is 7 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v2",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-11-01"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P03",
+      "split": "dev",
+      "family": "policy-valid-3",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-10-31, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-31"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P04",
+      "split": "dev",
+      "family": "policy-valid-4",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-01-01, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-01-01"
+      },
+      "wants_report": true
+    },
+    {
+      "id": "P05",
+      "split": "test",
+      "family": "policy-valid-5",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-02-01, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-02-01"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P06",
+      "split": "test",
+      "family": "policy-valid-6",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-04-30, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-04-30"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P07",
+      "split": "test",
+      "family": "policy-valid-7",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-10-15, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-15"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P08",
+      "split": "test",
+      "family": "policy-valid-8",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-11-02, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v2.",
+        "The refund window is 7 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v2",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-11-02"
+      },
+      "wants_report": true
+    },
+    {
+      "id": "P09",
+      "split": "test",
+      "family": "policy-valid-9",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-11-15, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v2.",
+        "The refund window is 7 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v2",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-11-15"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P10",
+      "split": "test",
+      "family": "policy-valid-10",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-12-31, what refund window applies under source refund?",
+      "question_date": "2027-02-01",
+      "reference_claims": [
+        "The applicable policy is refund_v2.",
+        "The refund window is 7 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v2",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-12-31"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P11",
+      "split": "test",
+      "family": "policy-valid-11",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2027-01-01, what refund window applies under source refund?",
+      "question_date": "2027-02-01",
+      "reference_claims": [
+        "The applicable policy is refund_v2.",
+        "The refund window is 7 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v2",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2027-01-01"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "P12",
+      "split": "test",
+      "family": "policy-valid-12",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "For a purchase on 2026-06-15, what refund window applies under source refund?",
+      "question_date": "2026-11-21",
+      "reference_claims": [
+        "The applicable policy is refund_v1.",
+        "The refund window is 30 days from purchase."
+      ],
+      "expected_status": "ok",
+      "expected_sources": [
+        "refund"
+      ],
+      "expected_revision": "refund_v1",
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-06-15"
+      },
+      "wants_report": true
+    },
+    {
+      "id": "C01",
+      "split": "dev",
+      "family": "policy-context-1",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Ask for the purchase date; do not select a policy."
+      ],
+      "expected_status": "needs_context",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "C02",
+      "split": "dev",
+      "family": "policy-context-2",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Explain the conflict between the requested revision and purchase date; do not force that revision."
+      ],
+      "expected_status": "context_conflict",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25",
+        "revision": "refund_v2"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "C03",
+      "split": "test",
+      "family": "policy-context-3",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Ask for the purchase date; do not select a policy."
+      ],
+      "expected_status": "needs_context",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "C04",
+      "split": "test",
+      "family": "policy-context-4",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Explain the conflict between the requested revision and purchase date; do not force that revision."
+      ],
+      "expected_status": "context_conflict",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25",
+        "revision": "refund_v2"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "C05",
+      "split": "test",
+      "family": "policy-context-5",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Ask for the purchase date; do not select a policy."
+      ],
+      "expected_status": "needs_context",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "C06",
+      "split": "test",
+      "family": "policy-context-6",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "Which refund window applies under source refund?",
+      "reference_claims": [
+        "Explain the conflict between the requested revision and purchase date; do not force that revision."
+      ],
+      "expected_status": "context_conflict",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25",
+        "revision": "refund_v2"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S01",
+      "split": "dev",
+      "family": "policy-safety-1",
+      "corpus": "policy",
+      "user": "outsider",
+      "query": "What refund window is described in source refund?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S02",
+      "split": "dev",
+      "family": "policy-safety-2",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "What refund window is described in source refund-withdrawn?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund-withdrawn",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S03",
+      "split": "test",
+      "family": "policy-safety-3",
+      "corpus": "policy",
+      "user": "outsider",
+      "query": "What refund window is described in source refund?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S04",
+      "split": "test",
+      "family": "policy-safety-4",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "What refund window is described in source refund-withdrawn?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund-withdrawn",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S05",
+      "split": "test",
+      "family": "policy-safety-5",
+      "corpus": "policy",
+      "user": "outsider",
+      "query": "What refund window is described in source refund?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    },
+    {
+      "id": "S06",
+      "split": "test",
+      "family": "policy-safety-6",
+      "corpus": "policy",
+      "user": "researcher",
+      "query": "What refund window is described in source refund-withdrawn?",
+      "reference_claims": [
+        "Do not expose forbidden or withdrawn evidence."
+      ],
+      "expected_status": "insufficient_evidence",
+      "expected_sources": [],
+      "context": {
+        "source_id": "refund-withdrawn",
+        "purchase_date": "2026-10-25"
+      },
+      "wants_report": false
+    }
+  ]
+}

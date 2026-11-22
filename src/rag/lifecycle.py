@@ -6,6 +6,7 @@ from contextlib import contextmanager
 from datetime import date, datetime, timezone
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
 import sqlite3
 import uuid
@@ -27,7 +28,7 @@ def now():
 
 class Lifecycle:
     def __init__(self, root=None):
-        self.root = Path(root or ROOT / "var/lifecycle")
+        self.root = Path(root or os.getenv("RAG_LIFECYCLE_ROOT") or ROOT / "var/lifecycle")
         self.root.mkdir(parents=True, exist_ok=True)
         (self.root / "generations").mkdir(exist_ok=True)
         with self.db() as c:

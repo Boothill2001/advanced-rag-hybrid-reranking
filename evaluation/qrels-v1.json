@@ -1,0 +1,752 @@
+{
+  "suite_sha256": "e6ea0f7101073b8cde309e68634763ac7f6602f6a6bb0a0759bc499b3a4d4f5a",
+  "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+  "notice": "DeepSeek-assisted relevance and answer judgments; no independent reviewer; same-model judge bias remains.",
+  "qrels": [
+    {
+      "case_id": "C01",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "C02",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "C03",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "C04",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "C05",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "C06",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P01",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P02",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "22946af0dd81d9864e759cdc0ba7552eac54b11c5d4c2a1d9829ce5bb127aa54"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P03",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P04",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P05",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P06",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P07",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P08",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "22946af0dd81d9864e759cdc0ba7552eac54b11c5d4c2a1d9829ce5bb127aa54"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P09",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "22946af0dd81d9864e759cdc0ba7552eac54b11c5d4c2a1d9829ce5bb127aa54"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P10",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "22946af0dd81d9864e759cdc0ba7552eac54b11c5d4c2a1d9829ce5bb127aa54"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P11",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "22946af0dd81d9864e759cdc0ba7552eac54b11c5d4c2a1d9829ce5bb127aa54"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "P12",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 1,
+      "reviewed_n": 1,
+      "relevant": [
+        "de731dca58c6af13b545767be96520b4c2c898e0c6bbba7421dcdab4f95567ba"
+      ],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S01",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S02",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S03",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S04",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S05",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "S06",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 0,
+      "reviewed_n": 0,
+      "relevant": [],
+      "method": "Explicit synthetic applicability rule",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T01",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "492d1d693115e00c79b210eecec4febfa4697dbecb73bd1c110688f912b2c355",
+        "38abe52cb82d40fdbf51b4a1539f901f65373f3751d919058ecc412a61787128",
+        "ece0cc1f62cb82d18351b7a6d74a30e86d124d6a2ef35a5ede2d2d5e800f74cb"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T02",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "38abe52cb82d40fdbf51b4a1539f901f65373f3751d919058ecc412a61787128",
+        "a30e6a9e4728454ec3cb6d4c19d77bbede60e4d928de0238a9f9d122c460e8ea",
+        "79e71d31c24fefb3d6bec021911fa3e08e33d14bbb4558951c42f67440eddcf6",
+        "ece0cc1f62cb82d18351b7a6d74a30e86d124d6a2ef35a5ede2d2d5e800f74cb",
+        "421ee2a636387bda1b9fde1ec65ad05bf48221cc098697f81a79dca38a5e3fe0",
+        "71b2a591165719098c01f97966d597a6378bec6980dc68570ae386a26d8ea0f2",
+        "718469de928964e15afa620b05f2c5b6c9b058c97aeec90b88b533edee09a392",
+        "fe0219cb79ac5e3e083b401c8cfb8e36006be2b4f0ab842b9adcb32f41ec77a7"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T03",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "17a6372850f1af260e32ea279c74bfee49b8729988829e59a84d7b4124bb1a9e"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T04",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "17a6372850f1af260e32ea279c74bfee49b8729988829e59a84d7b4124bb1a9e"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T05",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "492d1d693115e00c79b210eecec4febfa4697dbecb73bd1c110688f912b2c355",
+        "06cadf0fac35d43d9f51d0682d38bc594c9ac378d391393b2218e8775fa0dddc",
+        "b450d2aec964594b368f1630eee88b262c3f07c35b90f95ba6e6af031524e021",
+        "79e71d31c24fefb3d6bec021911fa3e08e33d14bbb4558951c42f67440eddcf6",
+        "ece0cc1f62cb82d18351b7a6d74a30e86d124d6a2ef35a5ede2d2d5e800f74cb"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T06",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "a7a8398099b9420ba271d6876d19c0337473e34633afc02a5688b33d472ccfb5",
+        "530baccc682851eabe36324ea652ea6b3a6d37615e738b35a3d64803b2fdf0f7"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T07",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "d29c3e735b24a86ebd8fa19a93858f98a6dd9dfc2dfa743b098516cbda8cee93",
+        "3be663aaaa8f7427129eeed83a6ddae0772efe77af17a2ab06b758365c1affde",
+        "477af852771707c605f87d5ac42058320991d5ca885891fccea2ffb9ec838692",
+        "38bb3f78efcc35142ee9a8be366721df6edeefc023e9ab5bea02bd44ed9fb429"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T08",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "08001db6c546cddd0ada3d02ebf84fc5b1122e0a49f923650ebb00bde26b2b31",
+        "af273089096a29aaef457eda804bb24cafbf16ecde3c2ec87b227e33a3fb9f97",
+        "42b558a52e2b9c691a210ed70f3ba40c6817233474ef957da319b774324df1a6",
+        "c439be4b3f570438d32664b0eb33d19aa1c5e5ed4256e332683b837805a4d77b",
+        "1aeb383b92359402d5b11d4a25b9c04090caf3851e914e58ba02b1db8ea85bda"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T09",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "d29c3e735b24a86ebd8fa19a93858f98a6dd9dfc2dfa743b098516cbda8cee93",
+        "6e0a331a98e8bfadc05d7b15465904a71d47f3647c1eb8be635e8240e7df57d1",
+        "188ebabc4dd2978e69f137972345753251864be8f2af80f518fd60ebc96d6dc6"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T10",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "b508017a209e525c43539fddb7a35f31bc83c28daa9577c7d3fae533e905a30b",
+        "d29c3e735b24a86ebd8fa19a93858f98a6dd9dfc2dfa743b098516cbda8cee93",
+        "f0c408755f49820ac225bf0b99588cb6562e940f44335a94ead322cfabd919d3",
+        "a4a424eecd2705e063e5ca7f0c18403f2c112bc96d5d6fe1bddb45b9a4357725",
+        "63898c3429fbb54159c6619fafb8ce1e79ae861e4bf84c2c2b240af8b01b8a81"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T11",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "d29c3e735b24a86ebd8fa19a93858f98a6dd9dfc2dfa743b098516cbda8cee93",
+        "6e849d8bd25569ff0e2482e2e3fb660070ef20c0636c6dc2633f477fa9637a94",
+        "63898c3429fbb54159c6619fafb8ce1e79ae861e4bf84c2c2b240af8b01b8a81",
+        "6b5a14f07cf4041939c8d13b6f2bde9b8de16437e5971e8e34162bc0935fa0d6",
+        "4ba3c76e94c554b26248051ca4da5f7a796c81f65b5c63005782f455864a793b",
+        "159a8cabe12612cd77a06e030c247eb9503744403c1d6d2f3f9e486c75820f78"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T12",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "b508017a209e525c43539fddb7a35f31bc83c28daa9577c7d3fae533e905a30b",
+        "d29c3e735b24a86ebd8fa19a93858f98a6dd9dfc2dfa743b098516cbda8cee93",
+        "63898c3429fbb54159c6619fafb8ce1e79ae861e4bf84c2c2b240af8b01b8a81",
+        "159a8cabe12612cd77a06e030c247eb9503744403c1d6d2f3f9e486c75820f78"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T13",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "e9dd743c956ab50d885b3848321de8ba335b04619bb4afb4b0bb43338c6d9180"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T14",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "4ba3c76e94c554b26248051ca4da5f7a796c81f65b5c63005782f455864a793b"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T15",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "c92f064579c916bf72e2b48c11348578ffff8b8662729dc6496246ded6e816c0",
+        "194c019e6c2d1de19abc5ffbf26837ee07ac5e36c239f5e15914c9490207d032",
+        "6b5a14f07cf4041939c8d13b6f2bde9b8de16437e5971e8e34162bc0935fa0d6"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T16",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "67caf88981c5919542d246e6c011dfe63973b8038a5b659b1676a29c0f9a5183",
+        "e98765d989c355a72e7e73ca1dcd9da65a3117c197a9dcaa4b251941741ca963"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T17",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "0f078e3a8726b8a8c743b2e3b29bb16b6cadb276bd9eb1a7c5fd24c375495146"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T18",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "67caf88981c5919542d246e6c011dfe63973b8038a5b659b1676a29c0f9a5183",
+        "e22d5781e94d390272377248af6c2054a7f4710b10e752e27d295c156069ddce"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T19",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "67caf88981c5919542d246e6c011dfe63973b8038a5b659b1676a29c0f9a5183",
+        "0f078e3a8726b8a8c743b2e3b29bb16b6cadb276bd9eb1a7c5fd24c375495146",
+        "b9edf0f7aef620de6af10c1693e3cf8aed09c6c209dfc9f6bfcf71f71e44cda7",
+        "0a3304a0bad77047e27d59c7e5bc19888dbeaa5534c520e7837b93b01ca44a2c",
+        "1da842ab9d86a86ff9e173c418a2ac105e2f7fd01988fb1a68d9f9ea8251beda"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T20",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "e98765d989c355a72e7e73ca1dcd9da65a3117c197a9dcaa4b251941741ca963"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T21",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "b10b35ff1aa51902af748146039d6113445af360ad0b11d4ceb46ffec3f6cddd",
+        "4f261ec242dfbec25301a79e7680ec4cc9c6ddd7ef094476090e29288eb45901",
+        "47f36725bc67258de0cd8071970c614819945901254d56fcd4bf1feca9f6ff51",
+        "ec63ee643bb56acc1e03d25e46254ecb80ab89609411d8be4bb299e6c1026581",
+        "1da842ab9d86a86ff9e173c418a2ac105e2f7fd01988fb1a68d9f9ea8251beda",
+        "60eb1c9f9cf2d2abbbbbf8801386be0add1427282c1da3a0f1dbdbf18cc3467c"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T22",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "ec63ee643bb56acc1e03d25e46254ecb80ab89609411d8be4bb299e6c1026581"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T23",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "0a3304a0bad77047e27d59c7e5bc19888dbeaa5534c520e7837b93b01ca44a2c",
+        "dfa8d80ebbb4defc19c015b51c3fefe304c81dd6afa858784969cc72a355f154"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T24",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "e22d5781e94d390272377248af6c2054a7f4710b10e752e27d295c156069ddce",
+        "3c67aee08b107feb5d69d9912e4e2c0301a5e1d7c6d3f45bf5c9df161114a451",
+        "46f87898e3b2dd94d49b3f989b38812b7c0b506cabaf42db0a9d42441b2fac5d",
+        "318d0026dc2f340b7d27b32ca652722e7a72a9668907aae18d7ba98adf5b222d",
+        "eeac84dce8ec0292bebe0e1367c9d33913d4077acc82231c9570be74cb2f379d",
+        "0e41493872a00539990a227dcc3a218df5e71232b4c59e0a776692a0402b560a",
+        "7e0bb65a5ab71e4861331cffd4cbe46eff1f20a5e5a4360af89d3c8b3ee86989"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T25",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "4f261ec242dfbec25301a79e7680ec4cc9c6ddd7ef094476090e29288eb45901",
+        "ec63ee643bb56acc1e03d25e46254ecb80ab89609411d8be4bb299e6c1026581",
+        "1da842ab9d86a86ff9e173c418a2ac105e2f7fd01988fb1a68d9f9ea8251beda"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T26",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "77d772e7a4bc7ad26f8bea441a4661cad926eccfd79f1a7a8866f46e83d3ffc2",
+        "3900ce7926be421e8ae4eeaa619b837d0fc8681a42795a732dd4268eb8e3d350"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T27",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "02a74b15dc04979460bebed55904964671d7a634227bfa9fedb4d333fefed9f8"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T28",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "7902e1063d8c58d6f07540efdec825e47f943b96e08a023b12c6a81d1a20792e"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T29",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "77d772e7a4bc7ad26f8bea441a4661cad926eccfd79f1a7a8866f46e83d3ffc2",
+        "02a74b15dc04979460bebed55904964671d7a634227bfa9fedb4d333fefed9f8",
+        "7902e1063d8c58d6f07540efdec825e47f943b96e08a023b12c6a81d1a20792e",
+        "604b745f4f1e3570413ea063d2aa33dbfdbc9eac10eebb1c93047b0740585b63"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "T30",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [
+        "7902e1063d8c58d6f07540efdec825e47f943b96e08a023b12c6a81d1a20792e"
+      ],
+      "method": "chunk-relevance-v1",
+      "label_origin": "DeepSeek-assisted author labels; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U01",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U02",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U03",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U04",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U05",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    },
+    {
+      "case_id": "U06",
+      "generation": "7f6e8b583276475e8d1fc792381b5c7d",
+      "eligible_n": 113,
+      "reviewed_n": 113,
+      "relevant": [],
+      "method": "Author assessment: live/private facts absent from fixed technical corpus",
+      "label_origin": "AI-assisted author; no independent reviewer",
+      "complete": true
+    }
+  ]
+}

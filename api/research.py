@@ -1,6 +1,6 @@
 """Authenticated research API. Legacy tutorial /ask is outside this lifecycle contract."""
 from functools import lru_cache
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException, Request, Response
 from fastapi.concurrency import run_in_threadpool
 from pydantic import BaseModel, Field
 from rag.access import verify, allowed
@@ -9,11 +9,13 @@ from rag.service import ResearchService
 router = APIRouter()
 
 
-def principal(authorization: str = Header(default='')):
+def principal(request: Request, authorization: str = Header(default='')):
     try:
         if not authorization.startswith('Bearer '):
             raise ValueError('Missing bearer token')
-        return verify(authorization[7:])
+        user=verify(authorization[7:])
+        request.state.principal=user
+        return user
     except (ValueError, OSError, KeyError):
         raise HTTPException(401, 'Invalid or expired identity')
 
@@ -35,8 +37,10 @@ def guarded(call, *args, **kwargs):
 
 
 @router.get('/research/data')
-def data(corpus: str = 'technical', revision: str | None = None, purchase_date: str | None = None, user=Depends(principal)):
-    return guarded(service().data, user, corpus=corpus, revision=revision, purchase_date=purchase_date)
+def data(response: Response, corpus: str = 'technical', revision: str | None = None, purchase_date: str | None = None, user=Depends(principal)):
+    result=guarded(service().data, user, corpus=corpus, revision=revision, purchase_date=purchase_date)
+    response.headers['X-Research-Generation']=result.get('generation','unknown')
+    return result
 
 
 class SearchRequest(BaseModel):
@@ -57,8 +61,10 @@ def health():
 
 
 @router.post('/search')
-async def search(request: SearchRequest, user=Depends(principal)):
-    return await run_in_threadpool(guarded, service().search, user=user, **request.model_dump())
+async def search(request: SearchRequest, response: Response, user=Depends(principal)):
+    result=await run_in_threadpool(guarded, service().search, user=user, **request.model_dump())
+    response.headers['X-Research-Generation']=result.get('trace',{}).get('generation','unknown')
+    return result
 
 
 class EvidenceRequest(BaseModel):
@@ -67,11 +73,14 @@ class EvidenceRequest(BaseModel):
 
 
 @router.post('/research/validate')
-def validate(request: EvidenceRequest, user=Depends(principal)):
+def validate(request: EvidenceRequest, response: Response, user=Depends(principal)):
     allowed_context = {'corpus', 'revision', 'purchase_date', 'source_id'}
     if set(request.context) - allowed_context:
         raise HTTPException(422, 'Unknown evidence context')
-    return guarded(service().manager.validate_evidence, request.evidence, user, request.context)
+    result=guarded(service().manager.validate_evidence, request.evidence, user, request.context)
+    generations={r.get('generation') for r in request.evidence if r.get('generation')}
+    response.headers['X-Research-Generation']=next(iter(generations)) if len(generations)==1 else 'multiple' if generations else 'none'
+    return result
 
 
 class RefreshRequest(BaseModel):
@@ -166,3 +175,9 @@ class RollbackRequest(BaseModel):
 def rollback(request: RollbackRequest, user=Depends(principal)):
     curator(user)
     return guarded(service().manager.rollback, request.generation, user, request.expected_generation)
+
+
+@router.get('/research/metrics')
+def http_metrics(user=Depends(principal)):
+    from rag.http_metrics import metrics
+    return metrics.report(user['workspace'])

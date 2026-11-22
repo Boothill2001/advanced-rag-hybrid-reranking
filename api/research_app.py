@@ -7,3 +7,6 @@ from api.research import router
 
 app = FastAPI(title="Research Evidence API", version="2.0")
 app.include_router(router)
+
+from rag.http_metrics import install
+install(app)

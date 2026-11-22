@@ -1,0 +1,12 @@
+EVIDENCE EVALUATION — RUNTIME NOTES
+
+Suite: evaluation/suite-v1.json. 60 self-authored cases: 20 dev / 40 test. Pilot uses 12 dev IDs.
+Preparation: scripts/prepare_evaluation.py creates only var/evaluation-v1/registry.
+Serving registry and historical research-*.json files are not changed.
+Candidate traces expose only eligible chunk identifiers at dense, BM25, RRF, rerank and pre-gate stages.
+Metrics: src/rag/evaluation.py; explicit linear percentile and fixed precision@5 denominator.
+HTTP telemetry: bounded per-workspace/route/generation samples; no query content; resets on restart.
+Paid orchestration lives in companion scripts/evaluate_evidence.py. It uses separate state/cache, existing key and capped ledgers.
+Full publisher chunks and quotes stay local. Public qrels list IDs rather than redistribute source snapshots.
+Do not infer independent human validation from the word labels: this suite is AI-assisted and model judging shares the generator family.
+Test results must not tune retrieval or the gate. Inspect coverage and failure denominators before citing any score.
